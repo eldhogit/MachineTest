@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Nimap.MVC.Models.ProductVM>
+﻿@using PagedList.Mvc;
+@using PagedList
+@*@model IEnumerable<Nimap.MVC.Models.ProductVM>*@
+@model IPagedList<Nimap.MVC.Models.ProductVM>
 
 
 
@@ -10,19 +13,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.First().Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.First().Price)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            @Html.DisplayNameFor(model => model.First().CategoryId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
+            @Html.DisplayNameFor(model => model.First().CategoryName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsActiveText)
+            @Html.DisplayNameFor(model => model.First().IsActiveText)
         </th>
         <th>Actions</th>
     </tr>
@@ -58,3 +61,4 @@
     }
 
 </table>
+@Html.PagedListPager(Model, page => Url.Action("GetAll", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }))

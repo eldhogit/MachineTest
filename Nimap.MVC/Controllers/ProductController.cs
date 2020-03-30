@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList.Mvc;
+using PagedList;
 
 namespace Nimap.MVC.Controllers
 {
@@ -99,7 +101,7 @@ namespace Nimap.MVC.Controllers
 
         [HttpGet]
         [Route("getall")]
-        public ActionResult GetAll()
+        public ActionResult GetAll(int? page)
         {
             string ErrorMessage = string.Empty;
             List<Product> products = new List<Product>();
@@ -141,7 +143,7 @@ namespace Nimap.MVC.Controllers
                 throw new Exception(ErrorMessage);
             }
 
-            return View(productsVM);
+            return View(productsVM.ToPagedList(page??1,10));
         }
 
         [HttpGet]
